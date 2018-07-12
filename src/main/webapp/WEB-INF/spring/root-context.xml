@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<bean class="org.apache.commons.dbcp2.BasicDataSource"
+		id="dataSource">
+		<property value="oracle.jdbc.driver.OracleDriver"
+			name="driverClassName" />
+		<property value="jdbc:oracle:thin:@localhost:1521:xe"
+			name="url" />
+		<property value="pickplace" name="username" />
+		<property value="pickplace" name="password" />
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+		id="sqlSessionFactory">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:/config/mybatis-config.xml" />
+		<property name="mapperLocations"
+			value="classpath*:/mappers/**/*mapper.xml" />
+
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate"
+		id="sqlSession">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<bean class="org.springframework.jdbc.core.JdbcTemplate"
+		id="jdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<context:component-scan
+		base-package="com.project.pickplace" />
+
+</beans>

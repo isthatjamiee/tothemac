@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Mapper 사용을 위한 mybatis DTD 추가 -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- MNUM	NUMBER(13,0)		No				1	글번호
+KAKAOEMAIL	VARCHAR2(20 BYTE)	No				2	글쓴이
+MTITLE		VARCHAR2(30 BYTE)	No				3	제목
+MLOCAL		VARCHAR2(20 BYTE)	No				4	지역
+MCONTENT	VARCHAR2(40 BYTE)	Yes				5	메모
+MCDATE		DATE				No	SYSDATE 	6	등록날짜
+MUDATE		DATE				No	SYSDATE 	7	수정날짜
+BEGINLAT	VARCHAR2(30 BYTE)	No				8	시작위도
+BEGINLNG	VARCHAR2(30 BYTE)	No				9	시작경도 -->
+
+<!-- Mapper 이름 -->
+<mapper namespace="mapinfo">
+
+	<!-- 기록 생성 -->
+  	<insert id="write" parameterType="MapDTO">
+	    INSERT INTO MAPINFO(mnum, kakaoemail, mtitle, mlocal, mcontent, beginlat, beginlng) 
+	    VALUES (
+	    	mapinfo_seq.nextval, #{kakaoEmail}, #{mtitle}, #{mlocal}, #{mcontent}, #{beginLat}, #{beginLng}
+	    )
+	</insert>
+	
+	<!-- 기록 수정하기 -->
+	<update id="update" parameterType="MapDTO">
+		UPDATE MAPINFO 
+		SET mtitle = #{mtitle}, mlocal = #{mlocal}, mcontent = #{mcontent}, beginlat = #{beginLat}, beginlng = #{beginLng} 
+		WHERE mnum = #{mnum}
+	</update>
+	
+	<!-- 기록 삭제하기 -->
+	<delete id="delete">
+		DELETE FROM MAPINFO WHERE mnum = #{mnum}
+	</delete>
+	
+	<!-- 기록 리스트 -->
+	<select id="maplist" resultType="MapDTO">
+		select mnum, kakaoemail, mtitle, mlocal, mcontent, mcdate, mudate, beginlat, beginlng 
+		from MAPINFO order by mnum desc
+	</select>
+</mapper>

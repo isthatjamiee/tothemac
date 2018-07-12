@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 설정 파일로 사용 위해 mybatis DTD 추가 -->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.project.pickplace.dto.PinInfoDTO" alias="PinDTO"/>
+		<typeAlias type="com.project.pickplace.dto.MapInfoDTO" alias="MapDTO"/>
+	</typeAliases>
+</configuration>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Mapper 사용을 위한 mybatis DTD 추가 -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- PNUM	NUMBER(13,0)		No		1	지도번호
+	MNUM	NUMBER(13,0)		No		2	게시글번호
+	PMEMO	VARCHAR2(20 BYTE)	Yes		3	게시글메모
+	PTHEME	VARCHAR2(20 BYTE)	No		4	핀테마
+	PIN_LAT	VARCHAR2(30 BYTE)	No		5	핀위도
+	PIN_LNG	VARCHAR2(30 BYTE)	No		6	핀경도 
+	RATE	NUMBER(10,0)		Yes		7	평점(RATE/2) -->
+
+<!-- Mapper 이름: pininfo -->
+<mapper namespace="pininfo">
+
+	<!-- 핀 등록 -->
+  	<insert id="insert" parameterType="PinDTO">
+	    insert into PININFO(pnum, mnum, pmemo, ptheme, pinlat, pinlng, rate) 
+	    values (
+	    	pininfo_seq.nextval, #{mnum}, #{pmemo}, #{ptheme}, #{pinLat}, #{pinLng}, #{rate}
+	    )
+	</insert>
+</mapper>
